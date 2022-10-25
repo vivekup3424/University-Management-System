@@ -1,5 +1,5 @@
-#include"Accounts.h"
-#include"Department.h"
+#include "Accounts.h"
+#include "Department.h"
 #include "Person.h"
 #include<iostream>
 #include<string>
@@ -28,7 +28,7 @@ public:
 	void set_faculty_desc(string);
 	//Getters
 	//for showing payments
-	void showPaymentDetails(int);
+	void showPaymentDetails();
 	string get_faculty_type();
 	string get_faculty_desc();
 };
@@ -40,7 +40,7 @@ void Faculties::set_payments(float decidedSalary, string payment_method, float t
 	accounts.set_payment_method(payment_method);
 	accounts.set_total_working_hours(total_working_hours);
 }
-void Faculties::showPaymentDetails(int index)
+void Faculties::showPaymentDetails()
 {
 	cout<<"For Faculty: \n";
 	cout<<"Name: "<<this->get_name()<<"\n";
@@ -49,4 +49,20 @@ void Faculties::showPaymentDetails(int index)
 	cout << "\nThe deducted salary : " << accounts.get_deducted_salary();
 	cout << "\nThe paid salary     : " << accounts.get_paid_salary();
 	cout << "\nThe bonus salary    : " << accounts.get_decided_salary()<<"\n";
+}
+void Faculties::set_faculty_type(string type)
+{
+	this->faculty_type = type;
+}
+void Faculties::set_faculty_desc(string desc)
+{
+	this->faculty_description = desc;
+}
+string Faculties::get_faculty_type()
+{
+	return this->faculty_type;
+}
+string Faculties::get_faculty_desc()
+{
+	return this->faculty_description;
 }
