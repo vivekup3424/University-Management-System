@@ -1,3 +1,4 @@
+#pragma once
 #include "Accounts.h"
 #include "Department.h"
 #include "Person.h"

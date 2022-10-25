@@ -1,8 +1,10 @@
-#include"Student.h"
+#pragma once
 #include<iostream>
 #include<vector>
 #include<string>
 using namespace std;
+//Every student has a unique Academic Record, no Academic 
+//Record can be of two different students
 class AcademicRecord
 {
 private:
@@ -25,7 +27,6 @@ public:
 	//getters
 	float get_student_marks(int);
 	char get_student_grades(int);
-	float get_Attandance_percentage(int);
 	float get_CGPA();
 	int get_total_credits();
 	string get_program_name();

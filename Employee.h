@@ -1,3 +1,4 @@
+#pragma once
 #include"Accounts.h"
 #include"Department.h"
 #include "Person.h"
@@ -23,7 +24,7 @@ public:
     string get_employee_job();
 };
 
-
+ 
 void Employee::set_payments(float decidedSalary, string payment_method, float total_working_hours)
 {
 	//Using composition

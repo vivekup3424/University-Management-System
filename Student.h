@@ -1,4 +1,4 @@
-
+#pragma once
 #include"Courses.h" //course is aggregating to a student
 #include"AcademicRecord.h"
 #include "Person.h"
