@@ -18,17 +18,137 @@ int main()
 	cout<<"4.Show the Courses opted by a particular student\n";
 	cout<<"5.Add a new faculty in the university\n";
 	cout<<"6.Show the details of all faculties in university\n";
-	cout<<"7.Add a new employee in the university\n";
-	cout<<"8.Show the details of all employees in university\n";
-	cout<<"9.Show the details of accounts of a particular employee\n";
-	cout<<"10.Add a new department in the university\n";//?
-	cout<<"11.Show all the department in the university\n";
-	cout<<"12.Add a new classroom in the university\n";
-	cout<<"13.Add a new student in a classroom\n";
-	cout<<"14.Show all the classrooms in the university\n";
+	cout<<"7.Show the details of accounts of all faculties\n";
+	cout<<"8.Add a new employee in the university\n";
+	cout<<"9.Show the details of all employees in university\n";
+	cout<<"10.Show the details of accounts of a particular employee\n";
+	cout<<"11.Add a new department in the university\n";//?
+	cout<<"12.Show all the department in the university\n";
+	cout<<"13.Add a new classroom in the university\n";
+	cout<<"14.Add a new student in a classroom\n";
+	cout<<"15.Show all the classrooms in the university\n";
 	
 	int choice;
 	cin>>choice;
 
 	Display display;
+	switch (choice)
+	{
+	case 1:
+	{
+		//cout<<"1.Add a new student in the university\n";
+		display.setStudentData();
+		break;
+	}
+	case 2:
+	{
+		//cout<<"2.Show the details of all students\n";
+		display.ShowStudentsRecord();
+		break;
+	}
+	case 3:
+	{
+		//cout<<"3.Show the Academic Record of all students\n";
+		display.ShowStudentsAcademicRecord();
+		break;
+	}
+	case 4:
+	{
+		//cout<<"4.Show the Courses opted by a particular student\n";
+		cout<<"Enter the student's Id to view courses chosen: ";
+		string id;
+		int resultant_index=-1;//index of student for the given id
+		//searching for required student
+		for (int i = 0; i < display.total_students; i++)
+		{
+			if(display.students[i].get_id() == id)
+			{
+				resultant_index = i;
+				break;
+			}
+		}
+		if(resultant_index==-1)//no student with ID found 
+		{
+			cout<<"No student with this ID found";
+		}
+		else
+		{
+			display.ShowStudentCoursesInfo(resultant_index);
+		}
+		break;
+	}
+	case 5:
+	{
+		//cout<<"5.Add a new faculty in the university\n";
+		display.setFacultiesInfo();
+		break;
+	}
+	case 6:
+	{
+		//cout<<"6.Show the details of all faculties in university\n";
+		display.ShowFacultiesDetails();
+		break;
+	}
+	case 7:
+	{
+		//cout<<"7.Show the details of accounts of a particular faculty\n";
+		display.ShowFacultiesAccountDetails();
+		break;
+	}
+	case 8:
+	{
+		//cout<<"8.Add a new employee in the university\n";
+		display.setEmployeesInfo();
+		break;
+	}
+	case 9:
+	{
+		//cout<<"9.Show the details of all employees in university\n";
+		display.ShowEmployeesDetails();
+		break;
+	}
+	case 10:
+	{
+		//cout<<"10.Show the details of accounts of a particular employee\n";
+		display.ShowEmployeesAccountDetails();
+		break;
+	}
+
+	//This functionality is missing.
+	case 11:
+	{
+		//cout<<"11.Add a new department in the university\n";
+		display.setStudentData();
+		break;
+	}
+	case 12:
+	{
+		//cout<<"11.Show all the department in the university\n";
+		display.setStudentData();
+		break;
+	}
+	case 13:
+	{
+		//out<<"12.Add a new classroom in the university\n";
+		display.setClassroomInfo();
+		break;
+	}
+
+	//This functionality is missing.
+	case 14:
+	{
+		//out<<"12.Add a new student in a classroom.\n";
+		//display.
+		break;
+	}
+	case 15:
+	{
+		//cout<<"14.Show all the classrooms in the university\n";
+		display.ShowClassroomDetails();
+		break;
+	}
+	default:
+		break;
+	}
+	return 0;
 }
