@@ -16,6 +16,11 @@ class Display
 {
 private:
 	//Using Inheritance
+
+    //Using Polymorphism
+	Department* department=new Faculties();
+
+public:
 	vector<Student> students;
 	Courses courses; //this data members is extra
 
@@ -24,11 +29,6 @@ private:
 	vector<Employee> employees;
 
 	vector<Classroom> classrooms;
-
-    //Using Polymorphism
-	Department* department=new Faculties();
-
-public:
 	int total_students = 0;
 	int total_faculties = 0;
 	int courses_counter = 0;
@@ -48,6 +48,8 @@ public:
 	void ShowEmployeesDetails();
 	void ShowEmployeesAccountDetails();
 	void ShowClassroomDetails(); //view the details of all classrooms
+	void AddStudentInClassroom(int classroomID,string studentID);
+	void AddFacultyInClassroom(int classroomID,string facltyID);
 };
 
 //For stundents
@@ -303,4 +305,45 @@ void Display::ShowClassroomDetails()
 		current->get_faculties();
 		cout<<"\n";
 	}	
+}
+void Display::AddStudentInClassroom(int classroomID,string studentID)
+{
+	int resultantIndex = -1;
+	for (int i = 0; i < classrooms.size(); i++)
+	{
+		if(classrooms[i].get_id()==classroomID)
+		{
+			resultantIndex = i;
+			break;
+		}
+	}
+	if(resultantIndex==-1)//no class is found for the given ID
+	{
+		cout<<"no class is found for the given ID";
+	}
+	else
+	{
+		classrooms[resultantIndex].add_student(studentID);
+	}
+}
+void Display::AddFacultyInClassroom(int classroomID,string facltyID)
+{
+	int resultantIndex = -1;
+	for (int i = 0; i < faculties.size(); i++)
+	{
+		if(faculties[i].get_id()==facltyID)
+		{
+			resultantIndex = i;
+			break;
+		}
+	}
+	if(resultantIndex==-1)//no class is found for the given ID
+	{
+		cout<<"no class is found for the given ID";
+	}
+	else
+	{
+		classrooms[resultantIndex].add_faculty(facltyID);
+	}
+
 }

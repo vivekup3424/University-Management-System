@@ -10,14 +10,15 @@ using namespace std;
 //We are using composition for courses because two students can have a 
 //set of course record, hence I am not using inheritance between Student and
 //Courses
-class Student:public AcademicRecord,public Person
+class Student:public AcademicRecord,public Person,public Department
 {
 private:
-	Courses A;//A contains all information about the courses a student has opt for.
-	//int index; //I might remove this one
+	
 	string institute_email;
 
 public:
+	Courses A;//A contains all information about the courses a student has opt for.
+	//int index; //I might remove this one
 	Student();
 	~Student();
 	//Using polymorphism between methods
@@ -26,6 +27,7 @@ public:
 	
 	//setter
 	void set_institute_email(string email);
+	void setDepartmentID(string);
 
 	//getter
 	string get_institute_email();
@@ -60,6 +62,10 @@ void Student::ShowStudentCoursesInfo()
 void Student::set_institute_email(string email)
 {
 	this->institute_email = email;
+}
+void Student::setDepartmentID(string id)
+{
+	
 }
 
 string Student::get_institute_email()

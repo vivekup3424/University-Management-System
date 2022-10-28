@@ -5,6 +5,7 @@
 using namespace std;
 //I think department should be an abstract class
 //for it is having dependency to student as well as faculties
+//there can be no Department with 0 students or 0 faculties
 class Department
 {
 private:
@@ -20,7 +21,7 @@ public:
 //Setters
 	void setDepartmentName(string);
 	void setHODName(string);    //name of HOD
-	void setDepartmentID(string);
+	virtual void setDepartmentID(string);
 	void setDepartmentStrength(int); //number of students in department
 
 //getters

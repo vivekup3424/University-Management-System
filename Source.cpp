@@ -22,11 +22,12 @@ int main()
 	cout<<"8.Add a new employee in the university\n";
 	cout<<"9.Show the details of all employees in university\n";
 	cout<<"10.Show the details of accounts of a particular employee\n";
-	cout<<"11.Add a new department in the university\n";//?
-	cout<<"12.Show all the department in the university\n";
+	cout<<"11?.Add a new department in the university\n";//?
+	cout<<"12?.Show all the department in the university\n";
 	cout<<"13.Add a new classroom in the university\n";
 	cout<<"14.Add a new student in a classroom\n";
-	cout<<"15.Show all the classrooms in the university\n";
+	cout<<"15.Add a new faculty in a classroom\n";
+	cout<<"16.Show all the classrooms in the university\n";
 	
 	int choice;
 	cin>>choice;
@@ -134,14 +135,29 @@ int main()
 		break;
 	}
 
-	//This functionality is missing.
 	case 14:
 	{
-		//out<<"12.Add a new student in a classroom.\n";
-		//display.
+		//out<<"14.Add a new student in a classroom.\n";
+		int ClassroomID; string StudentID;
+		cout<<"Enter the ID of classroom: ";
+		cin>>ClassroomID;
+		cout<<"Enter the ID of student to be added in classroom: ";
+		cin>>StudentID;
+		display.AddStudentInClassroom(ClassroomID,StudentID);
 		break;
 	}
 	case 15:
+	{
+		//out<<"15.Add a new faculty in a classroom.\n";
+		int ClassroomID; string FacultyID;
+		cout<<"Enter the ID of classroom: ";
+		cin>>ClassroomID;
+		cout<<"Enter the ID of Faculty to be added in classroom: ";
+		cin>>FacultyID;
+		display.AddFacultyInClassroom(ClassroomID,FacultyID);
+		break;
+	}
+	case 16:
 	{
 		//cout<<"14.Show all the classrooms in the university\n";
 		display.ShowClassroomDetails();
