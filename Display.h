@@ -29,8 +29,8 @@ private:
 	Department* department=new Faculties();
 
 public:
-	int student_counter = 0;
-	int faculties_counter = 0;
+	int total_students = 0;
+	int total_faculties = 0;
 	int courses_counter = 0;
 	//setter
 	void setStudentData();
@@ -68,6 +68,7 @@ void Display::setStudentData()
 	int size;
 	cout<<"Enter the number of students: ";
 	cin>>size;
+	total_students += size;
 	Student *current; //current Student
 	for (int i = 0; i < size; i++)
 	{
@@ -153,6 +154,7 @@ void Display::setFacultiesInfo()
 	int size;
 	cout<<"Enter the number of faculties: ";
 	cin>>size;
+	total_faculties += size;
 	for (int i = 0; i < size; i++)
 	{
 		cout<<"For faculty "<<i+1<<" Enter the following: \n";
@@ -300,7 +302,5 @@ void Display::ShowClassroomDetails()
 		cout<<"ID of teachers in classroom are: \n";
 		current->get_faculties();
 		cout<<"\n";
-	}
-	
+	}	
 }
-
