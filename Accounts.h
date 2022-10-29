@@ -27,7 +27,19 @@ public:
 	float get_paid_salary();
 	float get_bonus_salary();
 };
-
+Accounts::Accounts()
+{
+	decidedSalary = 0;
+	paymentMethod = "";
+	deductedSalary = 0;
+	bonusSalary = 0;
+	paidSalary = 0;
+	totalWorkingHours = 0;
+}
+Accounts::~Accounts()
+{
+	;
+}
 void Accounts::set_decided_salary(float ds)
 {
 	this->decidedSalary = ds;

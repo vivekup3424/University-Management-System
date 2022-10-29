@@ -30,10 +30,12 @@ Classroom::Classroom()
     this->strength = 0;//default value is 0
     this->faculties_id = {};
     this->students_id = {};
+    classroom_id = 0;
 }
 
 Classroom::~Classroom()
 {
+    ;
 }
 void Classroom::add_student(string id)
 {

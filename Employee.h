@@ -23,8 +23,15 @@ public:
 	void showPaymentDetails();
     string get_employee_job();
 };
-
- 
+Employee::Employee()
+{
+	employee_job = "";
+	accounts = Accounts();
+}
+Employee::~Employee()
+{
+	;
+}
 void Employee::set_payments(float decidedSalary, string payment_method, float total_working_hours)
 {
 	//Using composition

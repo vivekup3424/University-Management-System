@@ -15,7 +15,7 @@ private:
 	float CGPA;
 	int total_credits;
 public:
-	AcademicRecord()=default;
+	AcademicRecord();
 	~AcademicRecord()=default;
 	//setters
 	void set_CGPA(float);
@@ -34,6 +34,19 @@ public:
 	int get_enroll_no();
 	pair<int,int> get_session();
 };
+AcademicRecord::AcademicRecord()
+{
+	programme_name = "";
+	admission_no = 0;
+	enroll_no = 0;
+	session_time_period = {0,0};
+	CGPA = 0;
+	total_credits = 0;
+}
+AcademicRecord::~AcademicRecord()
+{
+	;
+}
 
 //defining setters
 void AcademicRecord::set_CGPA(float cgpa)

@@ -29,6 +29,9 @@ public:
 	vector<Employee> employees;
 
 	vector<Classroom> classrooms;
+
+	Display();//default constructor
+
 	int total_students = 0;
 	int total_faculties = 0;
 	int courses_counter = 0;
@@ -51,6 +54,14 @@ public:
 	void AddStudentInClassroom(int classroomID,string studentID);
 	void AddFacultyInClassroom(int classroomID,string facltyID);
 };
+Display::Display()
+{
+	students = {};
+	courses = Courses();
+	faculties = {};
+	employees = {};
+	classrooms = {};
+}
 
 //For stundents
 void Display::setStudentAcademicRecord(int counter,string program_name, int admission_no, int enroll_no, int begin_year,int end_year, float CGPA, int credits)

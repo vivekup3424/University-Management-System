@@ -33,7 +33,16 @@ public:
 	string get_faculty_type();
 	string get_faculty_desc();
 };
-
+Faculties::Faculties()
+{
+	faculty_type = "";
+	faculty_description = "";
+	accounts = Accounts();
+}
+Faculties::~Faculties()
+{
+	;
+}
 void Faculties::set_payments(float decidedSalary, string payment_method, float total_working_hours)
 {
 	//Using composition

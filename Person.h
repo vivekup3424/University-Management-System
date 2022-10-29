@@ -35,6 +35,7 @@ Person::Person()
 
 Person::~Person()
 {
+    ;
 }
 void Person::set_id(string id)
 {

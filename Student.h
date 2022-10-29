@@ -33,7 +33,14 @@ public:
 	string get_institute_email();
 
 };
-
+Student::Student()
+{
+	institute_email = "";
+}
+Student::~Student()
+{
+	;
+}
 void Student::ShowStudentAcademicRecord()
 {
 	cout<<"\nThe Programme name of student  : "<<this->get_program_name()<<"\n";

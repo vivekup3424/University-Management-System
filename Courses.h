@@ -24,10 +24,17 @@ public:
 	float get_course_wise_marks(int);
     int get_total_no_courses();//get total number of courses
 };
-
-
-
-
+Courses::Courses()
+{
+	courses_enrolled = {};
+	course_wise_attandance_percentage = {};
+	course_wise_marks = {};
+	total_no_courses = 0;
+}
+Courses::~Courses()
+{
+	;
+}
 void Courses::set_courses_enrolled(string ce)
 {
 	this->courses_enrolled.push_back(ce);//appending the "ce" course in course-list

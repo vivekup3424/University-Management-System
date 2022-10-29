@@ -15,7 +15,7 @@ private:
 	int departmentStrength; //total num of students in department
 public:
     Department();
-	virtual ~Department()=default; //this makes it abstract class
+	~Department()=default; //this makes it abstract class
 	//Declaring the methods
 	
 //Setters
@@ -37,6 +37,10 @@ Department::Department()
 	this->departmentID = "";
 	this->departmentName = "";
 	this->departmentStrength = 0;
+}
+Department::~Department()
+{
+	;
 }
 void Department::setDepartmentID(string id)
 {
