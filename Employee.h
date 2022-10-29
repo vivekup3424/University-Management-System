@@ -12,8 +12,8 @@ private:
 	string employee_job;
 	Accounts accounts;
 public:
-	Employee()=default;
-	~Employee()=default;
+	Employee();
+	~Employee();
 	//Setters
 	void set_payments(float,string,float);
     void set_employee_job(string);

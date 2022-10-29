@@ -11,8 +11,8 @@ private:
 	vector<int> course_wise_marks;// coursewise marks of students in a given semester
 	int total_no_courses;
 public:
-	Courses()=default;
-	~Courses()=default;
+	Courses();
+	~Courses();
 	//setters
 	void set_courses_enrolled(string);
 	void set_coursewise_attendance_percentage(float);

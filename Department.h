@@ -15,7 +15,7 @@ private:
 	int departmentStrength; //total num of students in department
 public:
     Department();
-	~Department()=default; //this makes it abstract class
+	~Department(); //this makes it abstract class
 	//Declaring the methods
 	
 //Setters

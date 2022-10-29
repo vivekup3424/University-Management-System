@@ -19,7 +19,7 @@ private:
 	string faculty_description;
     Accounts accounts;
 public:
-	Faculties()=default;
+	Faculties();
 	~Faculties()=default;
 	//Polymorphism - virtual function overriding
 	

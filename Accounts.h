@@ -13,8 +13,8 @@ private:
 	float paidSalary;//to be calculated from other data members
 	float totalWorkingHours;
 public:
-	Accounts()=default;
-	~Accounts()=default;
+	Accounts();
+	~Accounts();
 	//setters
 	void set_decided_salary(float);
 	void set_payment_method(string);

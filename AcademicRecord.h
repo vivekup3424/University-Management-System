@@ -16,7 +16,7 @@ private:
 	int total_credits;
 public:
 	AcademicRecord();
-	~AcademicRecord()=default;
+	~AcademicRecord();
 	//setters
 	void set_CGPA(float);
 	void set_total_credits(int);
