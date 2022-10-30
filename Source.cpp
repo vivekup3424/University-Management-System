@@ -27,8 +27,7 @@ int main()
 	cout<<"8.Add a new employee in the university\n";
 	cout<<"9.Show the details of all employees in university\n";
 	cout<<"10.Show the details of accounts of a particular employee\n";
-	cout<<"11?.Add a new department in the university\n";//?
-	cout<<"12?.Show all the department in the university\n";
+	cout<<"12.Show all the department in the university\n";
 	cout<<"13.Add a new classroom in the university\n";
 	cout<<"14.Add a new student in a classroom\n";
 	cout<<"15.Add a new faculty in a classroom\n";
