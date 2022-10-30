@@ -34,10 +34,9 @@ public:
 
 	int total_students = 0;
 	int total_faculties = 0;
-	int courses_counter = 0;
 	//setter
 	void setStudentData();
-	void setStudentAcademicRecord(int counter, string program_name, int admission_no, int enroll_no, int begin_year, int end_year, float CGPA, int credits);
+	void setStudentAcademicRecord(Student *temp,int counter, string program_name, int admission_no, int enroll_no, int begin_year, int end_year, float CGPA, int credits);
 	void setFacultiesInfo();
 	void setEmployeesInfo();
 	void setClassroomInfo();
@@ -64,14 +63,14 @@ Display::Display()
 }
 
 //For stundents
-void Display::setStudentAcademicRecord(int counter,string program_name, int admission_no, int enroll_no, int begin_year,int end_year, float CGPA, int credits)
+void Display::setStudentAcademicRecord(Student *temp,int counter,string program_name, int admission_no, int enroll_no, int begin_year,int end_year, float CGPA, int credits)
 {
-	students[counter].set_program_name(program_name);
-	students[counter].set_admission_no(admission_no);
-	students[counter].set_enroll_no(enroll_no);
-	students[counter].set_session(begin_year,end_year);
-	students[counter].set_CGPA(CGPA);
-	students[counter].set_total_credits(credits);
+	temp->set_program_name(program_name);
+	temp->set_admission_no(admission_no);
+	temp->set_enroll_no(enroll_no);
+	temp->set_session(begin_year,end_year);
+	temp->set_CGPA(CGPA);
+	temp->set_total_credits(credits);
 };
 //setting up all the data for a particulat student
 //I am inputting Course directly
@@ -82,43 +81,53 @@ void Display::setStudentData()
 	cout<<"Enter the number of students: ";
 	cin>>size;
 	total_students += size;
-	Student *current; //current Student
+	string dummy; //used for dummy calls
+	Student *temp =new Student(); //temp Student
 	for (int i = 0; i < size; i++)
 	{
-	current = &students[i];
 	cout<<"For student "<<i+1<<"\nEnter the following: \n";//For general details
-	cout<<"ID  Name  Email  Contact_Number  Address Faculty_Type  Faculty_Description\n";
-	string ID,Name,EMail,Address,insti_email;
-	int contact_number;
-	cin>>ID>>Name>>EMail>>contact_number>>Address>>insti_email;
-	current->set_id(ID);
-	current->set_name(Name);
-	current->set_email(EMail);
-	current->set_contact_number(contact_number);
-	current->set_address(Address);
-	current->set_institute_email(insti_email);
-
+	string ID,Name,EMail,Address,insti_email, contact_number;
+	cout<<"ID: "; cin>>ID;
+	cout<<"Name: "; cin>>Name;
+	cout<<"EMail: "; cin>>EMail;
+	cout<<"Contact Number: "; cin>>contact_number;
+	cout<<"Address: "; cin>>Address;
+	cout<<"Institute EMail: "; cin>>insti_email;
+	temp->set_id(ID);
+	temp->set_name(Name);
+	temp->set_email(EMail);
+	temp->set_contact_number(contact_number);
+	temp->set_address(Address);
+	temp->set_institute_email(insti_email);
+	cout<<"\n-------------COURSES--------------\n";
 	cout<<"Enter the Course Details: \n";//For Course Details
 	int size_course;
 	cout<<"Enter the number of courses: ";
 	cin>>size_course;
-	cout<<"Enter the following for each course: \n";
-	cout<<"Course_Name  Marks  Attendance Percentage \n";
 	string name;
 	int marks;
 	float attendance;
+	
 	for (int i = 0; i < size_course; i++)
 	{
-		cin>>name>>marks>>attendance;
-		current->A.set_courses_enrolled(name);
-		current->A.set_course_wise_marks(marks);
-		current->A.set_coursewise_attendance_percentage(attendance);
+		cout<<"Enter the following for each course "<<i+1<<" : \n";
+		cout<<"Course Name: "; cin>>name;
+		cout<<"Marks: "; cin>>marks;
+		cout<<"Attendance Percentage: "; cin>>attendance;
 	}
+	cout<<"\n-------------ACADEMIC RECORD--------------\n";
 	cout<<"Enter the Academic Record Details: \n";//For Academic Record Details
 	string program_name; int admission_no, enroll_no, begin_year, end_year, credits; float CGPA;
-	cout<<"Enter Program_name, admission_no enroll_no begin_year end_year credits CGPA";
-	cin>>program_name>>admission_no>>enroll_no>>begin_year>>end_year>>credits>>CGPA;
-	setStudentAcademicRecord(i,program_name,admission_no,enroll_no,begin_year,end_year,credits,CGPA);
+	cout<<"Program_name: "; cin>>program_name;
+	cout<<"Admission Number: "; cin>>admission_no;
+	cout<<"Erollment Number: "; cin>>enroll_no;
+	cout<<"Course Begin Year: ";cin>>begin_year;
+	cout<<"Course End Year: "; cin>>end_year;
+	cout<<"Credits: "; cin>>credits;
+	cout<<"CGPA: "; cin>>CGPA; 
+	setStudentAcademicRecord(temp,i,program_name,admission_no,enroll_no,begin_year,end_year,credits,CGPA);
+
+	students.push_back(*temp); //adding a new student
 	}
 
 	
@@ -127,7 +136,7 @@ void Display::setStudentData()
 void Display::ShowStudentsRecord()
 {
 	int size  = students.size();
-	cout<<"ID\tName\tEmail\tContact_Number\tAddress\tInsti_EMail\t\n";
+	cout<<"ID\tName\t\tEmail\t\tContact_Number\t\tAddress\t\tInsti_EMail\t\t\n";
 	for (int i = 0; i < size; i++)
 	{
 		cout<<students[i].get_id()<<" "<<students[i].get_name()<<" "<<students[i].get_email()<<" "<<students[i].get_contact_number()<<" "<<students[i].get_address()<<students[i].get_institute_email()<<"\n";
@@ -141,6 +150,7 @@ void Display::ShowStudentCoursesInfo(int index)
 	}
 	else
 	{
+		cout<<"\n-------------COURSES INFO--------------\n";
 		Courses subjects = students[index].A;
 		int size = subjects.get_total_no_courses();
 		cout<<"Course_Name\tMarks\tAttendance_Percentage\n";
@@ -153,6 +163,7 @@ void Display::ShowStudentCoursesInfo(int index)
 void Display::ShowStudentsAcademicRecord()
 {
 	int size = students.size();
+	cout<<"\n-------------ACADEMIC RECORD--------------\n";
 	cout<<"Program Name  Admission_No  Enroll_No  Session_Time  CGPA  Total_Credits\n";
 	for (int i = 0; i < size; i++)
 	{
@@ -170,31 +181,41 @@ void Display::setFacultiesInfo()
 	total_faculties += size;
 	for (int i = 0; i < size; i++)
 	{
+		Faculties *temp = new Faculties();
 		cout<<"For faculty "<<i+1<<" Enter the following: \n";
-		cout<<"ID  Name  Email  Contact_Number  Address Faculty_Type  Faculty_Description\n";
-		string id,name,email,address,F_type,desc;
-		int contact_num;
-		cin>>id>>name>>email>>contact_num>>address>>F_type>>desc;
-		faculties[i].set_id(id);
-		faculties[i].set_name(name);
-		faculties[i].set_email(email);
-		faculties[i].set_contact_number(contact_num);
-		faculties[i].set_address(address);
-		faculties[i].set_faculty_type(F_type);
-		faculties[i].set_faculty_desc(desc);
+		string id,name,email,address,F_type,desc, contact_num;
+		cout<<"ID: "; cin>>id;
+		cout<<"Name: "; cin>>name;
+		cout<<"EMail: "; cin>>email;
+		cout<<"Contact Number"; cin>>contact_num;
+		cout<<"Address: "; cin>>address;
+		cout<<"Faculty Type: "; cin>>F_type;
+		cout<<"Faculty Description: "; cin>>desc;
+		temp->set_id(id);
+		temp->set_name(name);
+		temp->set_email(email);
+		temp->set_contact_number(contact_num);
+		temp->set_address(address);
+		temp->set_faculty_type(F_type);
+		temp->set_faculty_desc(desc);
+		cout<<"\n-------------ACCOUNTS--------------\n";
 		cout<<"Enter Accounts details: \n";
 		cout<<"Decided_Salary  Payment_Method  Total_Working_Hours\n";
 		string method;
 		int hours;
 		float salary;
-		cin>>salary>>method>>hours;
+		cout<<"Decided_Salary: "; cin>>salary;
+		cout<<"Payment_Method: "; cin>>method;
+		cout<<"Total_Working_Hours: "; cin>>hours;
 		//settinh up account details
-		faculties[i].set_payments(salary,method,hours);
+		temp->set_payments(salary,method,hours);
+		faculties.push_back(*temp);
 	}
 }
 void Display::ShowFacultiesDetails()
 {
 	int total = faculties.size();
+	cout<<"\n-------------FACULTIES DETAIL--------------\n";
 	cout<<"ID  Name  EMail  Contact-Number  Address  Faculty-Type  Faculty-Desc\n";
 	Faculties *current; //current faculty
 	for (int i = 0; i < total; i++)
@@ -208,6 +229,7 @@ void Display::ShowFacultiesAccountDetails()
 {
 	int total = faculties.size();
 	Faculties current; //current faculty
+	cout<<"\n-------------FACULTIES' ACCOUNTS--------------\n";
 	for (int i = 0; i < total; i++)
 	{
 		current.showPaymentDetails(); //shows the payment details
@@ -222,30 +244,39 @@ void Display::setEmployeesInfo()
 	cin>>size;
 	for (int i = 0; i < size; i++)
 	{
+		Employee *temp = new Employee();
 		cout<<"For employee "<<i+1<<" Enter the following: \n";
-		cout<<"ID  Name  Email  Contact_Number  Address Employee-Job\n";
-		string id,name,email,address,job;
-		int contact_num;
-		cin>>id>>name>>email>>contact_num>>address>>job;
-		employees[i].set_id(id);
-		employees[i].set_name(name);
-		employees[i].set_email(email);
-		employees[i].set_contact_number(contact_num);
-		employees[i].set_address(address);
-		employees[i].set_employee_job(job);
+		string id,name,email,address,job, contact_num;
+		cout<<"ID: "; cin>>id;
+		cout<<"Name: "; cin>>name;
+		cout<<"EMail: "; cin>>email;
+		cout<<"Contact Number"; cin>>contact_num;
+		cout<<"Address: "; cin>>address;;
+		cout<<"Employee Job: "; cin>>job;
+		temp->set_id(id);
+		temp->set_name(name);
+		temp->set_email(email);
+		temp->set_contact_number(contact_num);
+		temp->set_address(address);
+		temp->set_employee_job(job);
 		cout<<"Enter Accounts details: \n";
 		cout<<"Decided_Salary  Payment_Method  Total_Working_Hours\n";
 		string method;
 		int hours;
 		float salary;
-		cin>>salary>>method>>hours;
+		cout<<"Decided_Salary: "; cin>>salary;
+		cout<<"Payment_Method: "; cin>>method;
+		cout<<"Total_Working_Hours: "; cin>>hours;
 		//settinh up account details
-		employees[i].set_payments(salary,method,hours);
+		temp->set_payments(salary,method,hours);
+
+		employees.push_back(*temp);
 	}
 }
 void Display::ShowEmployeesDetails()
 {
 	int total = employees.size();
+	cout<<"\n-------------EMPLOYEES' DETAIL--------------\n";
 	cout<<"ID  Name  EMail  Contact-Number  Address  Employee-Job\n";
 	Employee current; //current employee
 	for (int i = 0; i < total; i++)
@@ -259,6 +290,7 @@ void Display::ShowEmployeesAccountDetails()
 {
 	int total = employees.size();
 	Employee current; //current employee
+	cout<<"\n-------------EMPLOYEES' ACCOUNTS--------------\n";
 	for (int i = 0; i < total; i++)
 	{
 		current.showPaymentDetails(); //shows the payment details
@@ -269,15 +301,16 @@ void Display::ShowEmployeesAccountDetails()
 void Display::setClassroomInfo()
 {
 	int num_class;
+	cout<<"\n-------------CLASSROOMS--------------\n";
 	cout<<"Enter the number of classes in university: ";
 	cin>>num_class;
 	for (int i = 0; i < num_class; i++)
 	{
+		Classroom *temp = new Classroom(); //current class pointer
 		cout<<"For classroom "<<i+1<<" enter the id of classroom: ";
 		int id_classroom;
 		cin>>id_classroom;
-		Classroom *current = &classrooms[i]; //current class pointer
-		current->add_id(id_classroom);
+		temp->add_id(id_classroom);
 		int strength;
 		cout<<"Enter the number of students in classroom: ";
 		cin>>strength;
@@ -286,7 +319,7 @@ void Display::setClassroomInfo()
 		{
 			string id_student;
 			cin>>id_student;
-			current->add_student(id_student);
+			temp->add_student(id_student);
 		}
 		cout<<"Enter the number of teachers in classroom: ";
 		cin>>strength;
@@ -295,8 +328,9 @@ void Display::setClassroomInfo()
 		{
 			string id_teacher;
 			cin>>id_teacher;
-			current->add_faculty(id_teacher);
+			temp->add_faculty(id_teacher);
 		}	
+		classrooms.push_back(*temp);
 	}
 	
 }

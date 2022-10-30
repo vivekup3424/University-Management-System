@@ -10,7 +10,12 @@
 using namespace std;
 int main()
 {
-	cout<<"University Management System\n";
+	Display display;
+	int option;
+	char choice = 'y';
+	do
+	{
+		cout<<"University Management System\n";
 	cout<<"Click the options to do desired results:\n";
 	cout<<"1.Add a new student in the university\n";
 	cout<<"2.Show the details of all students\n";
@@ -28,12 +33,12 @@ int main()
 	cout<<"14.Add a new student in a classroom\n";
 	cout<<"15.Add a new faculty in a classroom\n";
 	cout<<"16.Show all the classrooms in the university\n";
+	cout<<"17.Enter to exit program.\n";
+	cout<<"----------------------------------------------\n";
 	
-	int choice;
-	cin>>choice;
+	cin>>option;
 
-	Display display;
-	switch (choice)
+	switch (option)
 	{
 	case 1:
 	{
@@ -58,6 +63,7 @@ int main()
 		//cout<<"4.Show the Courses opted by a particular student\n";
 		cout<<"Enter the student's Id to view courses chosen: ";
 		string id;
+		cin>>id;
 		int resultant_index=-1;//index of student for the given id
 		//searching for required student
 		for (int i = 0; i < display.total_students; i++)
@@ -163,8 +169,16 @@ int main()
 		display.ShowClassroomDetails();
 		break;
 	}
+	case 17:
+	{
+		return 0;
+	}
 	default:
 		break;
 	}
+	cout<<"Enter 'y' to continue or Enter 'n' to exit the program.\n";
+	cin>>choice;
+	} while (choice=='y'||choice=='Y');
+	
 	return 0;
 }

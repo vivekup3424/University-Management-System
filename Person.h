@@ -7,7 +7,7 @@ private:
     string id;
     string name;
     string email;
-    int contact_number;
+    string contact_number; //I am not able store this using int for 10digit number
     string address;
 public:
     Person();
@@ -15,12 +15,12 @@ public:
     void set_id(string);
     void set_name(string);
     void set_email(string);
-    void set_contact_number(int);
+    void set_contact_number(string);
     void set_address(string);
     string get_id();
     string get_name();
     string get_email();
-    int get_contact_number();
+    string get_contact_number();
     string get_address();
 };
 
@@ -29,7 +29,7 @@ Person::Person()
     this->id = "";
     this->name = "";
     this->email = "";
-    this->contact_number = 0;
+    this->contact_number = "0";
     this->address = "";
 }
 
@@ -53,7 +53,7 @@ void Person::set_address(string address)
 {
     this->address =address;
 }
-void Person::set_contact_number(int contact_number)
+void Person::set_contact_number(string contact_number)
 {
     this->contact_number =contact_number;
 }
@@ -73,7 +73,7 @@ string Person::get_name()
 {
     return this->name;
 }
-int Person::get_contact_number()
+string Person::get_contact_number()
 {
     return this->contact_number;
 }

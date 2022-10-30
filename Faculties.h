@@ -20,7 +20,7 @@ private:
     Accounts accounts;
 public:
 	Faculties();
-	~Faculties()=default;
+	~Faculties();
 	//Polymorphism - virtual function overriding
 	
 	//Setters
