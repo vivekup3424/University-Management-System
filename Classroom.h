@@ -40,6 +40,7 @@ Classroom::~Classroom()
 void Classroom::add_student(string id)
 {
     this->students_id.push_back(id);
+    strength++;
 }
 void Classroom::add_faculty(string id)
 {
