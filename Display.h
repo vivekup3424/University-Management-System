@@ -139,7 +139,7 @@ void Display::ShowStudentsRecord()
 	cout<<"ID\tName\t\tEmail\t\tContact_Number\t\tAddress\t\tInsti_EMail\t\t\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout<<students[i].get_id()<<" "<<students[i].get_name()<<" "<<students[i].get_email()<<" "<<students[i].get_contact_number()<<" "<<students[i].get_address()<<students[i].get_institute_email()<<"\n";
+		cout<<students[i].get_id()<<"\t"<<students[i].get_name()<<"\t"<<students[i].get_email()<<"\t"<<students[i].get_contact_number()<<"\t"<<students[i].get_address()<<"\t"<<students[i].get_institute_email()<<"\n";
 	}
 }
 void Display::ShowStudentCoursesInfo(int index)
@@ -156,7 +156,7 @@ void Display::ShowStudentCoursesInfo(int index)
 		cout<<"Course_Name\tMarks\tAttendance_Percentage\n";
 		for (int i = 0; i < size; i++)
 		{
-			cout<<subjects.get_courses_enrolled(i)<<" "<<subjects.get_course_wise_marks(i)<<" "<<subjects.get_coursewise_attendance_percentage(i)<<"\n";
+			cout<<subjects.get_courses_enrolled(i)<<"  "<<subjects.get_course_wise_marks(i)<<"  "<<subjects.get_coursewise_attendance_percentage(i)<<"\n";
 		}
 	}
 }
@@ -216,12 +216,12 @@ void Display::ShowFacultiesDetails()
 {
 	int total = faculties.size();
 	cout<<"\n-------------FACULTIES DETAIL--------------\n";
-	cout<<"ID  Name  EMail  Contact-Number  Address  Faculty-Type  Faculty-Desc\n";
+	cout<<"ID  Name  EMail  Contact-Number  Address  \tFaculty-Type  Faculty-Desc\n";
 	Faculties *current; //current faculty
 	for (int i = 0; i < total; i++)
 	{
 		current = &faculties[i];
-		cout<<current->get_id()<<"  "<<current->get_name()<<"  "<<current->get_contact_number()<<"  "<<
+		cout<<current->get_id()<<"  "<<current->get_name()<<"  "<<current->get_email()<<" "<<current->get_contact_number()<<"  "<<
 		current->get_address()<<"  "<<current->get_faculty_type()<<"  "<<current->get_faculty_desc()<<"\n";
 	}
 }
