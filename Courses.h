@@ -42,18 +42,10 @@ void Courses::set_courses_enrolled(string ce)
 }
 void Courses::set_coursewise_attendance_percentage(float cap) 
 {
-	for (int i = 0; i < courses_enrolled.size(); i++)
-	{
-		cout << "The attendance of" << (i + 1) << " course is " << courses_enrolled[i] << endl;
-	}
 	this->course_wise_attandance_percentage.push_back(cap);
 }
 void Courses::set_course_wise_marks(int cm)//i have changed the parameters data-type from float to int
 {
-	for (int i = 0; i < courses_enrolled.size(); i++)
-	{
-		cout << "The " << (i + 1) << " course is " << courses_enrolled[i] << endl;
-        }
 	this->course_wise_marks.push_back(cm);
 }
 void Courses::change_course_enrolled(int index,string course,float att,int marks)

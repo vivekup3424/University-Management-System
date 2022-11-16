@@ -1,6 +1,5 @@
 #pragma once
 #include "Accounts.h"
-#include "Department.h"
 #include "Person.h"
 #include<iostream>
 #include<string>
@@ -12,16 +11,15 @@ using namespace std;
 //Faculties has a data member of Accounts class
 //this implies there is a composition between Accounts and Faculties
 
-class Faculties:public Department,public Person
+class Faculties:public Person
 {
 private:
 	string faculty_type;
 	string faculty_description;
-    Accounts accounts;
+    Accounts accounts; //composition
 public:
 	Faculties();
 	~Faculties();
-	//Polymorphism - virtual function overriding
 	
 	//Setters
 	void set_payments(float, string, float);
@@ -54,11 +52,12 @@ void Faculties::showPaymentDetails()
 {
 	cout<<"For Faculty: \n";
 	cout<<"Name: "<<this->get_name()<<"\n";
-	cout << "\nThe decided salary  : " << accounts.get_decided_salary();
-	cout << "\nThe payment method  : " << accounts.get_payment_method();
-	cout << "\nThe deducted salary : " << accounts.get_deducted_salary();
-	cout << "\nThe paid salary     : " << accounts.get_paid_salary();
+	cout << "\nThe decided salary  : " << accounts.get_decided_salary()<<"\n";
+	cout << "\nThe payment method  : " << accounts.get_payment_method()<<"\n";
+	cout << "\nThe deducted salary : " << accounts.get_deducted_salary()<<"\n";
+	cout << "\nThe paid salary     : " << accounts.get_paid_salary()<<"\n";
 	cout << "\nThe bonus salary    : " << accounts.get_decided_salary()<<"\n";
+	cout<<"---------------------------------------\n";
 }
 void Faculties::set_faculty_type(string type)
 {

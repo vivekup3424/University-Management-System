@@ -1,6 +1,5 @@
 #pragma once
 #include"Accounts.h"
-#include"Department.h"
 #include "Person.h"
 #include<iostream>
 #include<vector>
@@ -43,11 +42,12 @@ void Employee::showPaymentDetails()
 {
 	cout << "For Faculty: \n";
 	cout << "Name: "<<this->get_name()<<"\n";
-	cout << "\nThe decided salary  : " << accounts.get_decided_salary();
-	cout << "\nThe payment method  : " << accounts.get_payment_method();
-	cout << "\nThe deducted salary : " << accounts.get_deducted_salary();
-	cout << "\nThe paid salary     : " << accounts.get_paid_salary();
+	cout << "\nThe decided salary  : " << accounts.get_decided_salary()<<"\n";
+	cout << "\nThe payment method  : " << accounts.get_payment_method()<<"\n";
+	cout << "\nThe deducted salary : " << accounts.get_deducted_salary()<<"\n";
+	cout << "\nThe paid salary     : " << accounts.get_paid_salary()<<"\n";
 	cout << "\nThe bonus salary    : " << accounts.get_decided_salary()<<"\n";
+	cout<<"--------------------------------------\n";
 }
 void Employee::set_employee_job(string job)
 {

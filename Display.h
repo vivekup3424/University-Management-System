@@ -3,7 +3,6 @@
 /*This will have all the data of our university inside
 it, as its data memebers also, this will set and get the data*/
 #pragma once
-#include "Department.h"
 #include "Student.h"
 #include "Courses.h"
 #include "Faculties.h"
@@ -11,14 +10,14 @@ it, as its data memebers also, this will set and get the data*/
 #include "Classroom.h"
 #include <vector>
 #include <string>
+#include <iomanip>
+#include <iostream>
+#include <fstream>	//ofstream: Stream class to write on files 
 using namespace std;
 class Display
 {
 private:
 	//Using Inheritance
-
-    //Using Polymorphism
-	Department* department=new Faculties();
 
 public:
 	vector<Student> students;
@@ -52,6 +51,13 @@ public:
 	void ShowClassroomDetails(); //view the details of all classrooms
 	void AddStudentInClassroom(int classroomID,string studentID);
 	void AddFacultyInClassroom(int classroomID,string facltyID);
+
+	//Deletion
+	void deleteStudentData(string id);
+	void deleteFacultyData(string id);
+	void deleteEmployeeData(string id);
+	void removeStudentFromClassroom(int classroomID,string studentID);
+	void removeFacultyFromClassroom(int classroomID,string FacultyID);
 };
 Display::Display()
 {
@@ -100,21 +106,26 @@ void Display::setStudentData()
 	temp->set_address(Address);
 	temp->set_institute_email(insti_email);
 	cout<<"\n-------------COURSES--------------\n";
-	cout<<"Enter the Course Details: \n";//For Course Details
+	Courses temporary_course;
 	int size_course;
-	cout<<"Enter the number of courses: ";
-	cin>>size_course;
-	string name;
 	int marks;
 	float attendance;
+	string name;
+	cout<<"Enter the Course Details: \n";//For Course Details
+	cout<<"Enter the number of courses: ";
+	cin>>size_course;
 	
 	for (int i = 0; i < size_course; i++)
 	{
 		cout<<"Enter the following for each course "<<i+1<<" : \n";
 		cout<<"Course Name: "; cin>>name;
+		temporary_course.set_courses_enrolled(name);
 		cout<<"Marks: "; cin>>marks;
+		temporary_course.set_course_wise_marks(marks);
 		cout<<"Attendance Percentage: "; cin>>attendance;
+		temporary_course.set_coursewise_attendance_percentage(attendance);
 	}
+	temp->A = temporary_course; //setting up the course
 	cout<<"\n-------------ACADEMIC RECORD--------------\n";
 	cout<<"Enter the Academic Record Details: \n";//For Academic Record Details
 	string program_name; int admission_no, enroll_no, begin_year, end_year, credits; float CGPA;
@@ -135,14 +146,22 @@ void Display::setStudentData()
 
 void Display::ShowStudentsRecord()
 {
+
 	int size  = students.size();
-	cout<<"ID\tName\t\tEmail\t\tContact_Number\t\tAddress\t\tInsti_EMail\t\t\n";
-	for (int i = 0; i < size; i++)
+	//cout<<"Insti_EMail";
+	cout<<"ID     | Name           | Email             | ";
+	cout<<"Contact_Num | Address         | Insti_EMail     | \n";
+	for (int i = 0; i < students.size(); i++)
 	{
-		cout<<students[i].get_id()<<"\t"<<students[i].get_name()<<"\t"<<students[i].get_email()<<"\t"<<students[i].get_contact_number()<<"\t"<<students[i].get_address()<<"\t"<<students[i].get_institute_email()<<"\n";
+		cout<<setw(5)<<students[i].get_id()<<" | "
+		<<setw(14)<<students[i].get_name()<<" | "
+		<<setw(15)<<students[i].get_email()<<" | "
+		<<setw(12)<<students[i].get_contact_number()<<" | "
+		<<setw(15)<<students[i].get_address()<<" | "
+		<<setw(15)<<students[i].get_institute_email()<<" | \n";
 	}
 }
-void Display::ShowStudentCoursesInfo(int index)
+void Display::ShowStudentCoursesInfo(int index) //enterring the index
 {
 	if(index>=students.size())
 	{
@@ -151,23 +170,19 @@ void Display::ShowStudentCoursesInfo(int index)
 	else
 	{
 		cout<<"\n-------------COURSES INFO--------------\n";
+		cout<<"For student id: "<<students[index].get_id()<<".\n";
 		Courses subjects = students[index].A;
-		int size = subjects.get_total_no_courses();
-		cout<<"Course_Name\tMarks\tAttendance_Percentage\n";
-		for (int i = 0; i < size; i++)
-		{
-			cout<<subjects.get_courses_enrolled(i)<<"  "<<subjects.get_course_wise_marks(i)<<"  "<<subjects.get_coursewise_attendance_percentage(i)<<"\n";
-		}
+		students[index].ShowStudentCoursesInfo();
 	}
 }
 void Display::ShowStudentsAcademicRecord()
 {
 	int size = students.size();
 	cout<<"\n-------------ACADEMIC RECORD--------------\n";
-	cout<<"Program Name  Admission_No  Enroll_No  Session_Time  CGPA  Total_Credits\n";
+	cout<<"Program Name | Admission_No | Enroll_No | Session_Time | Total_Credits | CGPA\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout<<students[i].get_program_name()<<"  "<<students[i].get_admission_no()<<"  "<<students[i].get_enroll_no()<<"  ("<<students[i].get_session().first<<" , "<<students[i].get_session().second<<")  "<<students[i].get_CGPA()<<"  "<<students[i].get_total_credits()<<"\n";
+		students[i].ShowStudentAcademicRecord();
 	}
 	
 }
@@ -204,8 +219,8 @@ void Display::setFacultiesInfo()
 		string method;
 		int hours;
 		float salary;
-		cout<<"Decided_Salary: "; cin>>salary;
 		cout<<"Payment_Method: "; cin>>method;
+		cout<<"Decided_Salary: "; cin>>salary;
 		cout<<"Total_Working_Hours: "; cin>>hours;
 		//settinh up account details
 		temp->set_payments(salary,method,hours);
@@ -216,23 +231,28 @@ void Display::ShowFacultiesDetails()
 {
 	int total = faculties.size();
 	cout<<"\n-------------FACULTIES DETAIL--------------\n";
-	cout<<"ID  Name  EMail  Contact-Number  Address  \tFaculty-Type  Faculty-Desc\n";
+	cout<<"ID     | Name         | Email        | ";
+	cout<<"Contact_Num | Address      | Faculty-Type     | ";
+	cout<<"Faculty-Desc          |\n";
 	Faculties *current; //current faculty
 	for (int i = 0; i < total; i++)
 	{
-		current = &faculties[i];
-		cout<<current->get_id()<<"  "<<current->get_name()<<"  "<<current->get_email()<<" "<<current->get_contact_number()<<"  "<<
-		current->get_address()<<"  "<<current->get_faculty_type()<<"  "<<current->get_faculty_desc()<<"\n";
+		cout<<setw(5)<<faculties[i].get_id()<<" | "
+		<<setw(12)<<faculties[i].get_name()<<" | "
+		<<setw(10)<<faculties[i].get_email()<<" | "
+		<<setw(12)<<faculties[i].get_contact_number()<<" | "
+		<<setw(12)<<faculties[i].get_address()<<" | "
+		<<setw(13)<<faculties[i].get_faculty_type()<<" | "
+		<<setw(13)<<faculties[i].get_faculty_desc()<<" |\n";
 	}
 }
 void Display::ShowFacultiesAccountDetails()
 {
 	int total = faculties.size();
-	Faculties current; //current faculty
 	cout<<"\n-------------FACULTIES' ACCOUNTS--------------\n";
 	for (int i = 0; i < total; i++)
 	{
-		current.showPaymentDetails(); //shows the payment details
+		faculties[i].showPaymentDetails();
 	}
 }
 
@@ -250,7 +270,7 @@ void Display::setEmployeesInfo()
 		cout<<"ID: "; cin>>id;
 		cout<<"Name: "; cin>>name;
 		cout<<"EMail: "; cin>>email;
-		cout<<"Contact Number"; cin>>contact_num;
+		cout<<"Contact Number: "; cin>>contact_num;
 		cout<<"Address: "; cin>>address;;
 		cout<<"Employee Job: "; cin>>job;
 		temp->set_id(id);
@@ -260,7 +280,6 @@ void Display::setEmployeesInfo()
 		temp->set_address(address);
 		temp->set_employee_job(job);
 		cout<<"Enter Accounts details: \n";
-		cout<<"Decided_Salary  Payment_Method  Total_Working_Hours\n";
 		string method;
 		int hours;
 		float salary;
@@ -289,11 +308,10 @@ void Display::ShowEmployeesDetails()
 void Display::ShowEmployeesAccountDetails()
 {
 	int total = employees.size();
-	Employee current; //current employee
 	cout<<"\n-------------EMPLOYEES' ACCOUNTS--------------\n";
 	for (int i = 0; i < total; i++)
 	{
-		current.showPaymentDetails(); //shows the payment details
+		employees[i].showPaymentDetails(); //shows the payment details
 	}
 }
 
@@ -343,7 +361,7 @@ void Display::ShowClassroomDetails()
 		current = &classrooms[i];
 		cout<<"For classroom with id: "<<current->get_id()<<"\n";
 		cout<<"No of students: "<<current->get_strength()<<"\n";
-		cout<<"ID of students in classroom are: \n";
+		cout<<"ID of students in classroom are: \n";		
 		current->get_students();
 		cout<<"\n";
 		cout<<"ID of teachers in classroom are: \n";
@@ -364,7 +382,7 @@ void Display::AddStudentInClassroom(int classroomID,string studentID)
 	}
 	if(resultantIndex==-1)//no class is found for the given ID
 	{
-		cout<<"no class is found for the given ID";
+		cout<<"no class is found for the given ID\n";
 	}
 	else
 	{
@@ -384,11 +402,89 @@ void Display::AddFacultyInClassroom(int classroomID,string facltyID)
 	}
 	if(resultantIndex==-1)//no class is found for the given ID
 	{
-		cout<<"no class is found for the given ID";
+		cout<<"no class is found for the given ID\n";
 	}
 	else
 	{
 		classrooms[resultantIndex].add_faculty(facltyID);
 	}
+}
+void Display::removeStudentFromClassroom(int classroomID,string studentID)
+{
+	int resultantIndex=-1;
+	for (int i = 0; i < classrooms.size(); i++)
+	{
+		if(classrooms[i].get_id()==classroomID)
+		{
+			resultantIndex = i;
+			break;
+		}
+	}
+	
+	if(resultantIndex==-1)//no class is found for the given ID
+	{
+		cout<<"no class is found for the given ID\n";
+	}
+	else
+	{
+		classrooms[resultantIndex].remove_student(studentID);
+	}
+}
+void Display::removeFacultyFromClassroom(int classroomID,string facltyID)
+{
+	int resultantIndex = -1;
+	for (int i = 0; i < faculties.size(); i++)
+	{
+		if(faculties[i].get_id()==facltyID)
+		{
+			resultantIndex = i;
+			break;
+		}
+	}
+	if(resultantIndex==-1)//no class is found for the given ID
+	{
+		cout<<"no class is found for the given ID\n";
+	}
+	else
+	{
+		classrooms[resultantIndex].remove_faculty(facltyID);
+	}
 
+}
+void Display::deleteStudentData(string id){
+    vector<Student>::iterator student_iterator = students.end();
+    for (auto i = students.begin(); i !=students.end(); i++)
+    {
+        if(i->get_id() == id){
+            //match found hence removing it
+            student_iterator = i;
+            students.erase(student_iterator);
+            //cout<<"Removed Student ID: "<<student_iterator->get_id()<<"\n";
+			break;
+        }
+    }
+}
+void Display::deleteFacultyData(string id){
+    vector<Faculties>::iterator faculty_iterator = faculties.end();
+    for (auto i = faculties.begin(); i !=faculties.end(); i++)
+    {
+        if(i->get_id() == id){
+            //match found hence removing it
+            faculty_iterator = i;
+            faculties.erase(faculty_iterator);
+            //cout<<"Removed Faculty ID: "<<faculty_iterator->get_id()<<"\n";
+        }
+    }
+}
+void Display::deleteEmployeeData(string id){
+    vector<Employee>::iterator Employee_iterator = employees.end();
+    for (auto i = employees.begin(); i !=employees.end(); i++)
+    {
+        if(i->get_id() == id){
+            //match found hence removing it
+            Employee_iterator = i;
+            employees.erase(Employee_iterator);
+            cout<<"Removed Employee ID: "<<Employee_iterator->get_id()<<"\n";
+        }
+    }
 }

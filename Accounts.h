@@ -19,7 +19,6 @@ public:
 	void set_decided_salary(float);
 	void set_payment_method(string);
 	void set_total_working_hours(float);
-	float get_calculated_salary();//??
 	//gettters
 	float get_decided_salary();
 	string get_payment_method();
@@ -51,9 +50,14 @@ void Accounts::set_payment_method(string pm)
 void Accounts::set_total_working_hours(float twh)
 {
 	this->totalWorkingHours = twh;
+	int diff = abs(totalWorkingHours-10);
 	if (totalWorkingHours> 10) //setting up bonus salary
 	{
-		this->bonusSalary = this->decidedSalary * 0.5;
+		this->bonusSalary = this->decidedSalary * 0.5*diff;
+	}
+	else if(totalWorkingHours<10)
+	{
+		deductedSalary = decidedSalary*0.5*diff;
 	}
 }
 float Accounts::get_decided_salary()
@@ -66,14 +70,9 @@ string Accounts::get_payment_method()
 }
 float Accounts::get_deducted_salary()
 {
-	if (totalWorkingHours<10)
-	{
-		float count = 10 - totalWorkingHours;
-		deductedSalary = paidSalary - (decidedSalary)*(count);
-	}
 	return deductedSalary;
 }
-float Accounts::get_calculated_salary()
+float Accounts::get_paid_salary()
 {
 	
 	this->paidSalary = (this->decidedSalary - this->deductedSalary)+get_bonus_salary();
@@ -82,13 +81,5 @@ float Accounts::get_calculated_salary()
 }
 float Accounts::get_bonus_salary()
 {
-	if (totalWorkingHours> 10)
-	{
-		this->bonusSalary = this->decidedSalary * 0.5;
-	}
 	return bonusSalary;
-}
-float Accounts::get_paid_salary()
-{
-	return paidSalary;
 }

@@ -23,6 +23,10 @@ public:
     int get_strength();
     int get_id();
     ~Classroom();
+
+    //deletion
+    void remove_student(string id);//find the iterator having this id from vector and erase it
+    void remove_faculty(string id);
 };
 
 Classroom::Classroom()
@@ -58,7 +62,7 @@ vector<string> Classroom::get_students()
     {
         cout<<students_id[i]<<"\t";
     }
-    
+    cout<<"\n";
     return this->students_id;
 }
 //prints the list of faculties for the classroom
@@ -69,6 +73,7 @@ vector<string> Classroom::get_faculties()
     {
         cout<<faculties_id[i]<<"\t";
     }
+    cout<<"\n";
     return this->faculties_id;
 }
 int Classroom::get_strength()
@@ -78,4 +83,28 @@ int Classroom::get_strength()
 int Classroom::get_id()
 {
     return classroom_id;
+}
+void Classroom::remove_student(string id){
+    vector<string>::iterator student_iterator = students_id.end();
+    for (auto i = students_id.begin(); i !=students_id.end(); i++)
+    {
+        if(*i == id){
+            //match found hence removing it
+            student_iterator = i;
+            students_id.erase(student_iterator);
+            cout<<"Removed Student ID: "<<*student_iterator<<"\n";
+        }
+    }
+}
+void Classroom::remove_faculty(string id){
+    vector<string>::iterator faculty_iterator = faculties_id.end();
+    for (auto i = faculties_id.begin(); i !=faculties_id.end(); i++)
+    {
+        if(*i == id){
+            //match found hence removing it
+            faculty_iterator = i;
+            faculties_id.erase(faculty_iterator);
+            cout<<"Removed Faculty ID: "<<*faculty_iterator<<"\n";
+        }
+    }
 }

@@ -5,12 +5,13 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include <iomanip>
 using namespace std;
 
 //We are using composition for courses because two students can have a 
 //set of course record, hence I am not using inheritance between Student and
 //Courses
-class Student:public AcademicRecord,public Person,public Department
+class Student:public AcademicRecord,public Person
 {
 private:
 	
@@ -43,24 +44,30 @@ Student::~Student()
 }
 void Student::ShowStudentAcademicRecord()
 {
-	cout<<"\nThe Programme name of student  : "<<this->get_program_name()<<"\n";
-	cout<<"\nThe Admission number of student: "<<this->get_admission_no()<<"\n";
-	cout<<"\nThe Enroll number of student   : "<<this->get_enroll_no()<<"\n";
-	cout<<"\nThe Session of student: ( "<<this->get_session().first<<","<<this->get_session().second<<" ).\n";
-	cout<<"\nThe CGPA of student: "<<this->get_CGPA()<<"\n";
-	cout<<"\nThe total credits of student: "<<this->get_total_credits()<<"\n";
+	//cout<<"\nProgramme name  : "<<this->get_program_name()<<"\n";
+	//cout<<"\nAdmission num: "<<this->get_admission_no()<<"\n";
+	//cout<<"\nEnroll number: "<<this->get_enroll_no()<<"\n";
+	//cout<<"\nThe Session of student: ( "<<this->get_session().first<<","<<this->get_session().second<<" ).\n";
+	//cout<<"\nThe CGPA of student: "<<this->get_CGPA()<<"\n";
+	//cout<<"\nThe total credits of student: "<<this->get_total_credits()<<"\n";
+
+	cout<<setw(12)<<this->get_program_name()<<" "
+	<<setw(14)<<this->get_admission_no()<<" "
+	<<setw(14)<<this->get_enroll_no()<<" "
+	<<setw(4)<<"("<<this->get_session().first<<","<<this->get_session().second<<" )"<<" "//4+4+1
+	<<setw(4)<<this->get_CGPA()<<" "
+	<<setw(7)<<this->get_total_credits()<<"\n";
 }
 void Student::ShowStudentCoursesInfo()
 {
 
 	int size = this->A.get_total_no_courses();
-	cout<<"Attendance Percentage";
-	cout<<"Course Name    Attendance Percentage    Marks";
+	cout<<"Course Name    Attendance Percentage    Marks\n";
 	for (int i = 0; i < size; i++)
 	{
-		cout<<this->A.get_courses_enrolled(i)<<"\t";
-		cout<<this->A.get_coursewise_attendance_percentage(i)<<"\t";
-		cout<<this->A.get_course_wise_marks(i)<<"\t";
+		cout<<setw(11)<<this->A.get_courses_enrolled(i)<<"\t";
+		cout<<setw(22)<<this->A.get_coursewise_attendance_percentage(i)<<"\t";
+		cout<<setw(5)<<this->A.get_course_wise_marks(i)<<"\t";
 		cout<<"\n";
 	}	
 	cout << "\nThe total number of courses are " << this->A.get_total_no_courses()<<endl;
@@ -70,11 +77,6 @@ void Student::set_institute_email(string email)
 {
 	this->institute_email = email;
 }
-void Student::setDepartmentID(string id)
-{
-	
-}
-
 string Student::get_institute_email()
 {
 	return this->institute_email;
