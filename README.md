@@ -2,7 +2,7 @@
 
 This contains the University Management System Project for my OOPS Course.
 
-Courses header file contains all information of Courses that a student has picked.
+Courses header files contains all information of Courses that a student has picked.
 
 Courses is in composition with Student class.
 Courses contains:-
